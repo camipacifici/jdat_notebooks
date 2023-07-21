@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+  <title>
+   ASDF Example — STScI JDAT Notebooks
+  </title>
+  <script data-cfasync="false">
+   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet"/>
+  <link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet"/>
+  <link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet"/>
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet"/>
+  <link as="font" crossorigin="" href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+  <link as="font" crossorigin="" href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+  <link as="font" crossorigin="" href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+  <link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+  <link href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" rel="stylesheet" type="text/css"/>
+  <link href="../../_static/togglebutton.css" rel="stylesheet" type="text/css"/>
+  <link href="../../_static/copybutton.css" rel="stylesheet" type="text/css"/>
+  <link href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
+  <link href="../../_static/sphinx-thebe.css" rel="stylesheet" type="text/css"/>
+  <link href="../../_static/main.css" rel="stylesheet" type="text/css"/>
+  <link href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" rel="stylesheet" type="text/css"/>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" rel="preload"/>
+  <link as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" rel="preload"/>
+  <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js">
+  </script>
+  <script src="../../_static/jquery.js">
+  </script>
+  <script src="../../_static/underscore.js">
+  </script>
+  <script src="../../_static/_sphinx_javascript_frameworks_compat.js">
+  </script>
+  <script src="../../_static/doctools.js">
+  </script>
+  <script src="../../_static/clipboard.min.js">
+  </script>
+  <script src="../../_static/copybutton.js">
+  </script>
+  <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824">
+  </script>
+  <script>
+   let toggleHintShow = 'Click to show';
+  </script>
+  <script>
+   let toggleHintHide = 'Click to hide';
+  </script>
+  <script>
+   let toggleOpenOnPrint = 'true';
+  </script>
+  <script src="../../_static/togglebutton.js">
+  </script>
+  <script>
+   var togglebuttonSelector = '.toggle, .admonition.dropdown';
+  </script>
+  <script src="../../_static/design-tabs.js">
+  </script>
+  <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-D46G4HKJY3">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-D46G4HKJY3');
+  </script>
+  <script>
+   const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+  </script>
+  <script async="async" src="../../_static/sphinx-thebe.js">
+  </script>
+  <script>
+   DOCUMENTATION_OPTIONS.pagename = 'notebooks/asdf_example/asdf_example';
+  </script>
+  <link href="../../genindex.html" rel="index" title="Index"/>
+  <link href="../../search.html" rel="search" title="Search"/>
+  <link href="../background_estimation_imaging/Imaging_Sky_Background_Estimation.html" rel="next" title="Complex 2D Background"/>
+  <link href="../../docs/github_pr.html" rel="prev" title="Making a Pull Request (PR)"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="en" name="docsearch:language"/>
+ </head>
+ <body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-default-mode="" data-offset="180">
+  <a class="skip-link" href="#main-content">
+   Skip to main content
+  </a>
+  <input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
+  <label class="overlay overlay-primary" for="__primary">
+  </label>
+  <input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
+  <label class="overlay overlay-secondary" for="__secondary">
+  </label>
+  <div class="search-button__wrapper">
+   <div class="search-button__overlay">
+   </div>
+   <div class="search-button__search-container">
+    <form action="../../search.html" class="bd-search d-flex align-items-center" method="get">
+     <i class="fa-solid fa-magnifying-glass">
+     </i>
+     <input aria-label="Search this book..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search this book..." spellcheck="false" type="search"/>
+     <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">
+       Ctrl
+      </kbd>
+      +
+      <kbd>
+       K
+      </kbd>
+     </span>
+    </form>
+   </div>
+  </div>
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+  </nav>
+  <div class="bd-container">
+   <div class="bd-container__inner bd-page-width">
+    <div class="bd-sidebar-primary bd-sidebar">
+     <div class="sidebar-header-items sidebar-primary__section">
+     </div>
+     <div class="sidebar-primary-items__start sidebar-primary__section">
+      <div class="sidebar-primary-item">
+       <a class="navbar-brand logo" href="../../intro.html">
+        <img alt="Logo image" class="logo__image only-light" src="../../_static/stsci_logo2.png"/>
+        <script>
+         document.write(`<img src="../../_static/stsci_logo2.png" class="logo__image only-dark" alt="Logo image"/>`);
+        </script>
+       </a>
+      </div>
+      <div class="sidebar-primary-item">
+       <nav aria-label="Main" class="bd-links" id="bd-docs-nav">
+        <div class="bd-toc-item navbar-nav active">
+         <ul class="nav bd-sidenav bd-sidenav__home-link">
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../intro.html">
+           </a>
+          </li>
+         </ul>
+         <p aria-level="2" class="caption" role="heading">
+          <span class="caption-text">
+           General
+          </span>
+         </p>
+         <ul class="nav bd-sidenav">
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../index.html">
+            Home
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../install.html">
+            Installation
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../docs/notebook_development_workflow.html">
+            Notebook Development Workflow
+           </a>
+          </li>
+         </ul>
+         <p aria-level="2" class="caption" role="heading">
+          <span class="caption-text">
+           Development
+          </span>
+         </p>
+         <ul class="nav bd-sidenav">
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../docs/submitting_notebooks.html">
+            Submitting Notebooks
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../docs/requirements.html">
+            Requirements file
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../docs/notebooks.html">
+            Jupyter Notebooks
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../docs/data_files.html">
+            Data Files
+           </a>
+          </li>
+         </ul>
+         <p aria-level="2" class="caption" role="heading">
+          <span class="caption-text">
+           GitHub Guidelines
+          </span>
+         </p>
+         <ul class="nav bd-sidenav">
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../docs/github_setup.html">
+            GitHub Setup
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../docs/github_workflow.html">
+            GitHub Workflow
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../../docs/github_pr.html">
+            GitHub PR
+           </a>
+          </li>
+         </ul>
+         <p aria-level="2" class="caption" role="heading">
+          <span class="caption-text">
+           Cross-Instrument
+          </span>
+         </p>
+         <ul class="current nav bd-sidenav">
+          <li class="toctree-l1 current active">
+           <a class="current reference internal" href="#">
+            ASDF Example
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../background_estimation_imaging/Imaging_Sky_Background_Estimation.html">
+            Complex 2D Background
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../composite_model_fitting/specfit_demo_3.html">
+            Composite Model Spectral Fitting
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../NIRSpec_MAST_Query/NIRSpec_MAST_Query.html">
+            MAST Query
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../rgb_imviz/imviz_rgb_carina.html">
+            RGB images with Imviz
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../specviz_notebookGUI_interaction/specviz_notebook_gui_interaction_redshift.html">
+            Specviz Simple Demo
+           </a>
+          </li>
+         </ul>
+         <p aria-level="2" class="caption" role="heading">
+          <span class="caption-text">
+           MIRI
+          </span>
+         </p>
+         <ul class="nav bd-sidenav">
+          <li class="toctree-l1">
+           <a class="reference internal" href="../MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_runpipeline.html">
+            MRS Mstar - Run Pipeline
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_PointSourceDetectorBasedExtraction.html">
+            MRS Detector Based Extraction
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../MRS_Mstar_analysis/JWST_Mstar_dataAnalysis_analysis.html">
+            MRS Mstar - Data Analysis
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../MIRI_IFU_YSOs_in_the_LMC/isha_nayak_ysos_in_the_lmc.html">
+            IFU of YSOs in LMC
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../MIRI_LRS_spectral_extraction/miri_lrs_spectral_extraction.html">
+            LRS Optimal Spectral Extraction
+           </a>
+          </li>
+         </ul>
+         <p aria-level="2" class="caption" role="heading">
+          <span class="caption-text">
+           NIRCam
+          </span>
+         </p>
+         <ul class="nav bd-sidenav">
+          <li class="toctree-l1">
+           <a class="reference internal" href="../aperture_photometry/NIRCam_Aperture_Photometry_Example.html">
+            Point Source Aperture Photometry
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../NIRCam_photometry/NIRCam_multiband_photometry.html">
+            Extended Aperture Photometry
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../NIRCam_PSF-matched_photometry/NIRCam_PSF_matched_multiband_photometry.html">
+            Cross-Filter PSF Matching
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../psf_photometry/NIRCam_PSF_Photometry_Example.html">
+            PSF Photometry
+           </a>
+          </li>
+         </ul>
+         <p aria-level="2" class="caption" role="heading">
+          <span class="caption-text">
+           NIRISS
+          </span>
+         </p>
+         <ul class="nav bd-sidenav">
+          <li class="toctree-l1">
+           <a class="reference internal" href="../NIRISS_WFSS_postpipeline/00_Optimal_extraction.html">
+            WFSS Spectra - Optimal Extraction
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../NIRISS_WFSS_postpipeline/01_Combine_and_normalize_1D_spectra.html">
+            WFSS Spectra - Combine and Normalize 1D Spectra
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../NIRISS_WFSS_postpipeline/02_Cross_correlation_template.html">
+            WFSS Spectra - Cross-Correlation Template
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../NIRISS_WFSS_postpipeline/03_Spatially_resolved_emission_line_map.html">
+            WFSS Spectra - Emission Line Map
+           </a>
+          </li>
+         </ul>
+         <p aria-level="2" class="caption" role="heading">
+          <span class="caption-text">
+           NIRSpec
+          </span>
+         </p>
+         <ul class="nav bd-sidenav">
+          <li class="toctree-l1">
+           <a class="reference internal" href="../IFU_cube_continuum_fit/NGC4151_FeII_ContinuumFit.html">
+            IFU Cube Fitting
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../ifu_optimal/ifu_optimal.html">
+            IFU Optimal Spectral Extraction
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../optimal_extraction/Spectral_Extraction-static.html">
+            MOS Optimal Extraction
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../mos_spectroscopy_advanced/MOSspec_advanced.html">
+            MOS Spectroscopy of Extragalactic Field
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../transit_spectroscopy_notebook/Exoplanet_Transmission_Spectra_JWST.html">
+            BOTS Time Series Observations
+           </a>
+          </li>
+          <li class="toctree-l1">
+           <a class="reference internal" href="../galaxy_redshift/redshift_fitting.html">
+            Redshift and Template Fitting
+           </a>
+          </li>
+         </ul>
+        </div>
+       </nav>
+      </div>
+     </div>
+     <div class="sidebar-primary-items__end sidebar-primary__section">
+     </div>
+     <div id="rtd-footer-container">
+     </div>
+    </div>
+    <main class="bd-main" id="main-content">
+     <div class="sbt-scroll-pixel-helper">
+     </div>
+     <div class="bd-content">
+      <div class="bd-article-container">
+       <div class="bd-header-article">
+        <div class="header-article-items header-article__inner">
+         <div class="header-article-items__start">
+          <div class="header-article-item">
+           <label class="sidebar-toggle primary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__primary" title="Toggle primary sidebar">
+            <span class="fa-solid fa-bars">
+            </span>
+           </label>
+          </div>
+         </div>
+         <div class="header-article-items__end">
+          <div class="header-article-item">
+           <div class="article-header-buttons">
+            <div class="dropdown dropdown-launch-buttons">
+             <button aria-expanded="false" aria-label="Launch interactive content" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
+              <i class="fas fa-rocket">
+              </i>
+             </button>
+             <ul class="dropdown-menu">
+              <li>
+               <button class="btn btn-sm btn-launch-thebe dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" onclick="initThebeSBT()" title="Launch Thebe">
+                <span class="btn__icon-container">
+                 <i class="fas fa-play">
+                 </i>
+                </span>
+                <span class="btn__text-container">
+                 Live Code
+                </span>
+               </button>
+              </li>
+             </ul>
+            </div>
+            <div class="dropdown dropdown-source-buttons">
+             <button aria-expanded="false" aria-label="Source repositories" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
+              <i class="fab fa-github">
+              </i>
+             </button>
+             <ul class="dropdown-menu">
+              <li>
+               <a class="btn btn-sm btn-source-repository-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/spacetelescope/jdat_notebooks" target="_blank" title="Source repository">
+                <span class="btn__icon-container">
+                 <i class="fab fa-github">
+                 </i>
+                </span>
+                <span class="btn__text-container">
+                 Repository
+                </span>
+               </a>
+              </li>
+              <li>
+               <a class="btn btn-sm btn-source-issues-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/spacetelescope/jdat_notebooks/issues/new?title=Issue%20on%20page%20%2Fnotebooks/asdf_example/asdf_example.html&amp;body=Your%20issue%20content%20here." target="_blank" title="Open an issue">
+                <span class="btn__icon-container">
+                 <i class="fas fa-lightbulb">
+                 </i>
+                </span>
+                <span class="btn__text-container">
+                 Open issue
+                </span>
+               </a>
+              </li>
+             </ul>
+            </div>
+            <div class="dropdown dropdown-download-buttons">
+             <button aria-expanded="false" aria-label="Download this page" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
+              <i class="fas fa-download">
+              </i>
+             </button>
+             <ul class="dropdown-menu">
+              <li>
+               <a class="btn btn-sm btn-download-source-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="../../_sources/notebooks/asdf_example/asdf_example.ipynb" target="_blank" title="Download source file">
+                <span class="btn__icon-container">
+                 <i class="fas fa-file">
+                 </i>
+                </span>
+                <span class="btn__text-container">
+                 .ipynb
+                </span>
+               </a>
+              </li>
+              <li>
+               <button class="btn btn-sm btn-download-pdf-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" onclick="window.print()" title="Print to PDF">
+                <span class="btn__icon-container">
+                 <i class="fas fa-file-pdf">
+                 </i>
+                </span>
+                <span class="btn__text-container">
+                 .pdf
+                </span>
+               </button>
+              </li>
+             </ul>
+            </div>
+            <button class="btn btn-sm btn-fullscreen-button" data-bs-placement="bottom" data-bs-toggle="tooltip" onclick="toggleFullScreen()" title="Fullscreen mode">
+             <span class="btn__icon-container">
+              <i class="fas fa-expand">
+              </i>
+             </span>
+            </button>
+            <script>
+             document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+            </script>
+            <script>
+             document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+            </script>
+            <label class="sidebar-toggle secondary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__secondary" title="Toggle secondary sidebar">
+             <span class="fa-solid fa-list">
+             </span>
+            </label>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="onlyprint" id="jb-print-docs-body">
+        <h1>
+         ASDF Example
+        </h1>
+        <!-- Table of contents -->
+        <div id="print-main-content">
+         <div id="jb-print-toc">
+          <div>
+           <h2>
+            Contents
+           </h2>
+          </div>
+          <nav aria-label="Page">
+           <ul class="visible nav section-nav flex-column">
+            <li class="toc-h1 nav-item toc-entry">
+             <a class="reference internal nav-link" href="#">
+              ASDF Example
+             </a>
+             <ul class="visible nav section-nav flex-column">
+              <li class="toc-h2 nav-item toc-entry">
+               <a class="reference internal nav-link" href="#introduction">
+                Introduction
+               </a>
+              </li>
+              <li class="toc-h2 nav-item toc-entry">
+               <a class="reference internal nav-link" href="#imports">
+                Imports
+               </a>
+              </li>
+              <li class="toc-h2 nav-item toc-entry">
+               <a class="reference internal nav-link" href="#get-the-data">
+                Get the data
+               </a>
+              </li>
+              <li class="toc-h2 nav-item toc-entry">
+               <a class="reference internal nav-link" href="#read-in-the-fits-file-look-at-its-structure-and-display-the-data">
+                Read in the FITS file, look at its structure and display the data
+               </a>
+              </li>
+              <li class="toc-h2 nav-item toc-entry">
+               <a class="reference internal nav-link" href="#example-1-store-just-the-key-value-pairs-of-the-metadata-in-asdf">
+                Example 1: Store just the key-value pairs of the metadata in ASDF
+               </a>
+              </li>
+             </ul>
+            </li>
+            <li class="toc-h1 nav-item toc-entry">
+             <a class="reference internal nav-link" href="#example-2-save-the-fits-header-annotations">
+              Example 2: Save the FITS header annotations
+             </a>
+             <ul class="visible nav section-nav flex-column">
+              <li class="toc-h2 nav-item toc-entry">
+               <a class="reference internal nav-link" href="#example-3-view-the-file-as-a-searchable-table">
+                Example 3: View the file as a searchable table
+               </a>
+              </li>
+              <li class="toc-h2 nav-item toc-entry">
+               <a class="reference internal nav-link" href="#example-4-add-the-data-and-write-to-a-file">
+                Example 4: Add the data and write to a file
+               </a>
+              </li>
+              <li class="toc-h2 nav-item toc-entry">
+               <a class="reference internal nav-link" href="#example-5-storing-multiple-extensions">
+                Example 5: Storing multiple extensions
+               </a>
+              </li>
+              <li class="toc-h2 nav-item toc-entry">
+               <a class="reference internal nav-link" href="#example-6-converting-from-fits-wcs-keywords-to-a-gwcs-object">
+                Example 6: Converting from FITS WCS keywords to a gwcs object
+               </a>
+              </li>
+             </ul>
+            </li>
+           </ul>
+          </nav>
+         </div>
+        </div>
+       </div>
+       <div id="searchbox">
+       </div>
+       <article class="bd-article" role="main">
+        <section id="asdf-example">
+         <h1>
+          ASDF Example
+          <a class="headerlink" href="#asdf-example" title="Permalink to this heading">
+           #
+          </a>
+         </h1>
+         <p>
+          <strong>
+           Use case:
+          </strong>
+          Create ASDF (Advanced Scientific Data Format) file from FITS file.
+          <br/>
+          <strong>
+           Data:
+          </strong>
+          CANDELS image of the COSMOS field.
+          <br/>
+          <strong>
+           Tools:
+          </strong>
+          asdf, gwcs, astrocut.
+          <br/>
+          <strong>
+           Cross-intrument:
+          </strong>
+          all instruments.
+          <br/>
+          <strong>
+           Documentation:
+          </strong>
+          This notebook is part of a STScI’s larger
+          <a class="reference external" href="https://jwst-docs.stsci.edu/jwst-post-pipeline-data-analysis">
+           post-pipeline Data Analysis Tools Ecosystem
+          </a>
+          .
+          <br/>
+         </p>
+         <section id="introduction">
+          <h2>
+           Introduction
+           <a class="headerlink" href="#introduction" title="Permalink to this heading">
+            #
+           </a>
+          </h2>
+          <p>
+           JWST data files make use of the
+           <a class="reference external" href="https://asdf.readthedocs.io/en/2.5.2/">
+            Advanced Scientific Data Format
+           </a>
+           . The ASDF metadata are stored in a FITS extension. The JWST pipline software reads and writes these from the in-memory
+           <a class="reference external" href="https://jwst-pipeline.readthedocs.io/en/latest/jwst/datamodels/">
+            datamodels
+           </a>
+           .
+          </p>
+          <p>
+           However, it is relatively straightforward to read and write a pure ASDF file, skipping FITS and datamodels entirely. This notebook illustrates some aspects of ASDF using a FITS file as a starting point.
+          </p>
+         </section>
+         <section id="imports">
+          <h2>
+           Imports
+           <a class="headerlink" href="#imports" title="Permalink to this heading">
+            #
+           </a>
+          </h2>
+          <ul class="simple">
+           <li>
+            <p>
+             astrocut for getting the data via the
+             <a class="reference external" href="https://astrocut.readthedocs.io/en/latest/">
+              astrocut
+             </a>
+             service at
+             <a class="reference external" href="https://mast.stsci.edu/portal/Mashup/Clients/Mast/Portal.html">
+              MAST
+             </a>
+            </p>
+           </li>
+           <li>
+            <p>
+             the fits library from astropy for reading in the FITS file
+            </p>
+           </li>
+           <li>
+            <p>
+             the astropy coordinates
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               SkyCoord
+              </span>
+             </code>
+             object for dealing with celestial coordinates
+            </p>
+           </li>
+           <li>
+            <p>
+             matplotlib for making plots
+            </p>
+           </li>
+           <li>
+            <p>
+             asdf and the
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               AsdfFile
+              </span>
+             </code>
+             object
+            </p>
+           </li>
+           <li>
+            <p>
+             the astropy
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               Table
+              </span>
+             </code>
+             object for a notebook-friendly view of the header
+            </p>
+           </li>
+           <li>
+            <p>
+             Items from the modeling, coordinates and wcs libraries for an example of converting world coordinate system information from FITS keywords to a
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               gwcs
+              </span>
+             </code>
+             data structure.
+            </p>
+           </li>
+          </ul>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="kn">from</span> <span class="nn">astrocut</span> <span class="kn">import</span> <span class="n">fits_cut</span>
+<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">asdf</span>
+<span class="kn">from</span> <span class="nn">asdf</span> <span class="kn">import</span> <span class="n">AsdfFile</span>
+<span class="kn">import</span> <span class="nn">asdf</span>
+
+<span class="c1"># For example 4</span>
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
+
+<span class="c1"># For example 6</span>
+<span class="kn">from</span> <span class="nn">astropy.modeling</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">astropy</span> <span class="kn">import</span> <span class="n">coordinates</span> <span class="k">as</span> <span class="n">coord</span>
+<span class="kn">from</span> <span class="nn">astropy</span> <span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+<span class="kn">from</span> <span class="nn">astropy.wcs</span> <span class="kn">import</span> <span class="n">WCS</span>
+<span class="kn">from</span> <span class="nn">gwcs</span> <span class="kn">import</span> <span class="n">wcs</span>
+<span class="kn">from</span> <span class="nn">gwcs.wcstools</span> <span class="kn">import</span> <span class="n">wcs_from_fiducial</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+         </section>
+         <section id="get-the-data">
+          <h2>
+           Get the data
+           <a class="headerlink" href="#get-the-data" title="Permalink to this heading">
+            #
+           </a>
+          </h2>
+          <p>
+           We’ll grab a cutout from the CANDELS observations of COSMOS using astroquery.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">"https://archive.stsci.edu/pub/hlsp/candels/cosmos/cos-tot/v1.0/"</span>
+<span class="n">input_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span> <span class="o">+</span> <span class="s2">"hlsp_candels_hst_acs_cos-tot-sect23_f606w_v1.0_drz.fits"</span><span class="p">]</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">center_coord</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="s2">"150.0946 2.38681"</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'deg'</span><span class="p">)</span>
+<span class="n">cutout_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">]</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">cutout_file</span> <span class="o">=</span> <span class="n">fits_cut</span><span class="p">(</span><span class="n">input_files</span><span class="p">,</span> <span class="n">center_coord</span><span class="p">,</span> <span class="n">cutout_size</span><span class="p">,</span> <span class="n">single_outfile</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cutout_file</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+         </section>
+         <section id="read-in-the-fits-file-look-at-its-structure-and-display-the-data">
+          <h2>
+           Read in the FITS file, look at its structure and display the data
+           <a class="headerlink" href="#read-in-the-fits-file-look-at-its-structure-and-display-the-data" title="Permalink to this heading">
+            #
+           </a>
+          </h2>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">cutout_hdulist</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cutout_file</span><span class="p">)</span>
+<span class="n">cutout_hdulist</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           Pull apart the FITS components, for convenience later on.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">cutout_hdulist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">header0</span> <span class="o">=</span> <span class="n">cutout_hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>
+<span class="n">header1</span> <span class="o">=</span> <span class="n">cutout_hdulist</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">header1</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+         </section>
+         <section id="example-1-store-just-the-key-value-pairs-of-the-metadata-in-asdf">
+          <h2>
+           Example 1: Store just the key-value pairs of the metadata in ASDF
+           <a class="headerlink" href="#example-1-store-just-the-key-value-pairs-of-the-metadata-in-asdf" title="Permalink to this heading">
+            #
+           </a>
+          </h2>
+          <p>
+           The basic asdf data structure is a dictionary. The astropy FITS header object acts like a python dictionary. We can copy it into a pure dictionary, which will be useful when we want to add the data.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">tree1</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">header1</span><span class="p">}</span> 
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           One more line of code to turn it into asdf.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">myfile</span> <span class="o">=</span> <span class="n">AsdfFile</span><span class="p">(</span><span class="n">tree1</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           We won’t save this to a file yet. First, let’s inspect the tree.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">myfile</span><span class="o">.</span><span class="n">tree</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+         </section>
+        </section>
+        <section id="example-2-save-the-fits-header-annotations">
+         <h1>
+          Example 2: Save the FITS header annotations
+          <a class="headerlink" href="#example-2-save-the-fits-header-annotations" title="Permalink to this heading">
+           #
+          </a>
+         </h1>
+         <p>
+          The fits header includes comments for many of the keywords. It’s a bit clunky, but we can save those by storing a tuple instead of just the value in the dictionary. While we’re at it, let’s toss some of the FITS keywords that aren’t useful.
+         </p>
+         <div class="cell docutils container">
+          <div class="cell_input docutils container">
+           <div class="highlight-ipython3 notranslate">
+            <div class="highlight">
+             <pre><span></span><span class="n">toss_these</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'XTENSION'</span><span class="p">,</span><span class="s1">'BITPIX'</span><span class="p">,</span><span class="s1">'NAXIS'</span><span class="p">,</span><span class="s1">'NAXIS1'</span><span class="p">,</span><span class="s1">'NAXIS2'</span><span class="p">,</span><span class="s1">'CHECKSUM'</span><span class="p">,</span>
+              <span class="s1">'DATASUM'</span><span class="p">,</span><span class="s1">'EXTNAME'</span><span class="p">,</span><span class="s1">'FILETYPE'</span><span class="p">,</span><span class="s1">'PCOUNT'</span><span class="p">,</span><span class="s1">'GCOUNT'</span><span class="p">,</span>
+              <span class="s1">'IRAF-BPX'</span><span class="p">,</span><span class="s1">'IRAF-MIN'</span><span class="p">,</span><span class="s1">'IRAF-MAX'</span><span class="p">,</span><span class="s1">'IRAFNAME'</span><span class="p">,</span><span class="s1">'IRAFTYPE'</span><span class="p">]</span>
+<span class="n">annotated_tree</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">header1</span><span class="o">.</span><span class="n">cards</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">card</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">toss_these</span><span class="p">:</span>
+        <span class="n">annotated_tree</span><span class="p">[</span><span class="n">card</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">=</span><span class="p">(</span><span class="n">card</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">card</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="cell docutils container">
+          <div class="cell_input docutils container">
+           <div class="highlight-ipython3 notranslate">
+            <div class="highlight">
+             <pre><span></span><span class="n">myfile</span> <span class="o">=</span> <span class="n">AsdfFile</span><span class="p">(</span><span class="n">annotated_tree</span><span class="p">)</span>
+</pre>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="cell docutils container">
+          <div class="cell_input docutils container">
+           <div class="highlight-ipython3 notranslate">
+            <div class="highlight">
+             <pre><span></span><span class="n">myfile</span><span class="o">.</span><span class="n">tree</span>
+</pre>
+            </div>
+           </div>
+          </div>
+         </div>
+         <p>
+          The value is now in the first element of each tuple. For example, to get just the value of
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            CRVAL1
+           </span>
+          </code>
+          , we could do something like the following.
+         </p>
+         <div class="cell docutils container">
+          <div class="cell_input docutils container">
+           <div class="highlight-ipython3 notranslate">
+            <div class="highlight">
+             <pre><span></span><span class="n">myfile</span><span class="p">[</span><span class="s1">'CRVAL1'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="cell docutils container">
+          <div class="cell_input docutils container">
+           <div class="highlight-ipython3 notranslate">
+            <div class="highlight">
+             <pre><span></span><span class="c1"># Update O_EXT_NM key since it was blank and causing crashing while saving below.</span>
+
+<span class="n">myfile</span><span class="o">.</span><span class="n">tree</span><span class="p">[</span><span class="s1">'O_EXT_NM'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Original Name Filler'</span>
+</pre>
+            </div>
+           </div>
+          </div>
+         </div>
+         <section id="example-3-view-the-file-as-a-searchable-table">
+          <h2>
+           Example 3: View the file as a searchable table
+           <a class="headerlink" href="#example-3-view-the-file-as-a-searchable-table" title="Permalink to this heading">
+            #
+           </a>
+          </h2>
+          <p>
+           For both FITS and ASDF, it can sometimes be painful to search through a long header. This example shows one way of putting the ASDF file into an Astropy table, and then using the
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             show_in_notebook
+            </span>
+           </code>
+           method to provide an interactive tabular view. You can then search by keyword or sort by column (by clicking on the headers).
+          </p>
+          <p>
+           In this example, we pull apart two-element tuples into values and comments. For the other data structures, we just put them into the comment column.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="k">def</span> <span class="nf">tree_to_table</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">values</span><span class="p">,</span> <span class="n">other</span> <span class="o">=</span> <span class="p">([]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">+=</span> <span class="p">[</span><span class="n">tree</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">other</span> <span class="o">+=</span> <span class="p">[</span><span class="n">tree</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">+=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+            <span class="n">other</span> <span class="o">+=</span> <span class="p">[</span><span class="n">tree</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">Table</span><span class="p">([</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">,</span><span class="n">other</span><span class="p">],</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">'key'</span><span class="p">,</span><span class="s1">'value'</span><span class="p">,</span><span class="s1">'comment or data structure'</span><span class="p">])</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">tree_to_table</span><span class="p">(</span><span class="n">myfile</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">show_in_notebook</span><span class="p">()</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+         </section>
+         <section id="example-4-add-the-data-and-write-to-a-file">
+          <h2>
+           Example 4: Add the data and write to a file
+           <a class="headerlink" href="#example-4-add-the-data-and-write-to-a-file" title="Permalink to this heading">
+            #
+           </a>
+          </h2>
+          <p>
+           So that’s the header. Now we just need to add the data to the dictionary. We can use any descriptive key we like. Maybe we should call it
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             data
+            </span>
+           </code>
+           .
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">myfile</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span> <span class="c1"># Equivalent to myfile.tree['data'] = data</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">myfile</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">myfile</span><span class="p">)</span>
+<span class="n">myfile</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">myfile</span><span class="o">.</span><span class="n">write_to</span><span class="p">(</span><span class="s1">'myfile.asdf'</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           Read the asdf file from disk and look at the tree and the data
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">ff</span> <span class="o">=</span> <span class="n">asdf</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">'myfile.asdf'</span><span class="p">)</span>
+<span class="n">ff</span><span class="o">.</span><span class="n">tree</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ff</span><span class="p">[</span><span class="s1">'data'</span><span class="p">])</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+         </section>
+         <section id="example-5-storing-multiple-extensions">
+          <h2>
+           Example 5: Storing multiple extensions
+           <a class="headerlink" href="#example-5-storing-multiple-extensions" title="Permalink to this heading">
+            #
+           </a>
+          </h2>
+          <p>
+           The perspicacious reader will have noticed that the previous examples only dealt with extension 1 of the FITS file, leaving the primary header out of the ASDF file. There is no prescribed way to arrange the multiple extensions of a FITS file into an ASDF file. One option would be to create a separate dictionary for each extension and then make a dictionary of these, e.g.:
+          </p>
+          <div class="highlight-default notranslate">
+           <div class="highlight">
+            <pre><span></span>    <span class="n">ext1</span><span class="p">,</span> <span class="n">ext2</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="o">**</span><span class="n">header0</span><span class="p">),</span> <span class="nb">dict</span><span class="p">(</span><span class="o">**</span><span class="n">header1</span><span class="p">)</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'ext1'</span><span class="p">:</span><span class="n">ext1</span><span class="p">,</span> <span class="s1">'ext2'</span><span class="p">:</span><span class="n">ext2</span><span class="p">}</span>
+</pre>
+           </div>
+          </div>
+          <p>
+           In this case, that would be a bit silly, because the only information of potential value in the ASDF file might be the
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             ORIGIN,
+            </span>
+            <span class="pre">
+             DATE,
+            </span>
+            <span class="pre">
+             PROC_VER,
+            </span>
+            <span class="pre">
+             RA_OBJ
+            </span>
+           </code>
+           and
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             DEC_OBJ
+            </span>
+           </code>
+           . However, looking at the extension, there is an
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             ORIGIN
+            </span>
+           </code>
+           there that will conflict with the
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             ORIGIN
+            </span>
+           </code>
+           . (Somewhat amusingly, they have different meanings, according to the comments.)
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">header0</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           One solution to the naming conflict might be to stuff this extra information into its own namespace, as a sub-item of the original dictionary.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'ORIGIN'</span><span class="p">,</span><span class="s1">'DATE'</span><span class="p">,</span><span class="s1">'PROCVER'</span><span class="p">,</span><span class="s1">'RA_OBJ'</span><span class="p">,</span><span class="s1">'DEC_OBJ'</span><span class="p">]</span>
+<span class="n">primary_header</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">header0</span><span class="o">.</span><span class="n">cards</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">card</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">:</span>
+        <span class="n">primary_header</span><span class="p">[</span><span class="n">card</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">=</span><span class="p">(</span><span class="n">card</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">card</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ff</span><span class="o">.</span><span class="n">tree</span><span class="p">[</span><span class="s1">'primary_header'</span><span class="p">]</span> <span class="o">=</span> <span class="n">primary_header</span>
+<span class="n">ff</span><span class="o">.</span><span class="n">tree</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+         </section>
+         <section id="example-6-converting-from-fits-wcs-keywords-to-a-gwcs-object">
+          <h2>
+           Example 6: Converting from FITS WCS keywords to a gwcs object
+           <a class="headerlink" href="#example-6-converting-from-fits-wcs-keywords-to-a-gwcs-object" title="Permalink to this heading">
+            #
+           </a>
+          </h2>
+          <p>
+           This is a bit complicated, and not particularly advantageous for this example.
+          </p>
+          <p>
+           The generalized world-coordinate system,
+           <a class="reference external" href="https://gwcs.readthedocs.io">
+            gwcs
+           </a>
+           package is built to support complex mappings between detector coordinates and coordinates. In this case it’s overkill. But it does illustrate saving a complex data object to an
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             asdf
+            </span>
+           </code>
+           file. The
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             gwcs
+            </span>
+           </code>
+           package extends asdf to specify the
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             wcs
+            </span>
+           </code>
+           object. In doing so, it makes extensive use of the transforms that are defined in the
+           <a class="reference external" href="https://asdf-standard.readthedocs.io/en/latest/">
+            asdf standard
+           </a>
+           .
+          </p>
+          <p>
+           This example follows the instructions in the
+           <a class="reference external" href="https://gwcs.readthedocs.io/en/latest/#a-step-by-step-example-of-constructing-an-imaging-gwcs-object">
+            gwcs documentation
+           </a>
+           . There is no rotation in this example, so we can follow the
+           <a class="reference external" href="https://gwcs.readthedocs.io/en/latest/gwcs/wcstools.html">
+            example
+           </a>
+           that makes use of convenience function
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             wcs_from_fiducial
+            </span>
+           </code>
+           .
+          </p>
+          <p>
+           Down the road there should be some convenience methods for converting common FITS WCSs and dealing gracefully with the (unfortunately quite common) inconsistencies.
+          </p>
+          <p>
+           For convenience, let’s use and astropy wcs object to grab the world-coordinate system information. This particular example reveals a problem that is quite common in FITS files: redundant and potentially inconsistent WCS information. In this case, the file is using both the PC matrix approach and the CD matrix approach. We’ll take the PC matrix as “truth”.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">fitswcs</span> <span class="o">=</span> <span class="n">WCS</span><span class="p">(</span><span class="n">header1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fitswcs</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           Grab some values from the wcs for improved readability of cells further down
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">crval1</span><span class="p">,</span> <span class="n">crval2</span> <span class="o">=</span> <span class="n">fitswcs</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">crval</span>
+<span class="n">cunit1</span><span class="p">,</span> <span class="n">cunit2</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="n">cu</span><span class="p">)</span> <span class="k">for</span> <span class="n">cu</span> <span class="ow">in</span> <span class="n">fitswcs</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">cunit</span><span class="p">]</span>
+<span class="n">pcmatrix</span> <span class="o">=</span> <span class="n">fitswcs</span><span class="o">.</span><span class="n">wcs</span><span class="o">.</span><span class="n">pc</span>
+<span class="n">cunit1</span><span class="p">,</span> <span class="n">cunit2</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           To create a WCS from a pointing on the sky, as a minimum pass a sky coordinate and a projection to the function.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">fiducial</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">SkyCoord</span><span class="p">(</span><span class="n">crval1</span><span class="o">*</span><span class="n">cunit1</span><span class="p">,</span> <span class="n">crval2</span><span class="o">*</span><span class="n">cunit2</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s1">'icrs'</span><span class="p">)</span>
+<span class="n">tan</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Pix2Sky_TAN</span><span class="p">()</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           Create a pipeline for the coordinate transformations. In this case apply a shift and then a rescaling. The function
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             wcs_from_fiducial
+            </span>
+           </code>
+           prepends these onto the sky projection.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">trans</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Shift</span><span class="p">(</span><span class="o">-</span><span class="n">crval1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">models</span><span class="o">.</span><span class="n">Shift</span><span class="p">(</span><span class="o">-</span><span class="n">crval2</span><span class="p">)</span> <span class="o">|</span>\
+        <span class="n">models</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="o">-</span><span class="n">pcmatrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="n">models</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">pcmatrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">wcsobj</span> <span class="o">=</span> <span class="n">wcs_from_fiducial</span><span class="p">(</span><span class="n">fiducial</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">tan</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">trans</span><span class="p">)</span>
+<span class="n">wcsobj</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           Get rid of the now obsolete FITS WCS keywords from the ASDF header. It’s blissfully short, and one could argue devoid of almost anything useful.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">fits_wcs_keywords</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'CRPIX1'</span><span class="p">,</span> <span class="s1">'CRVAL1'</span><span class="p">,</span> <span class="s1">'CTYPE1'</span><span class="p">,</span> <span class="s1">'CD1_1'</span><span class="p">,</span> <span class="s1">'CD2_1'</span><span class="p">,</span> <span class="s1">'CRPIX2'</span><span class="p">,</span> <span class="s1">'CRVAL2'</span><span class="p">,</span> 
+    <span class="s1">'CTYPE2'</span><span class="p">,</span> <span class="s1">'CD1_2'</span><span class="p">,</span> <span class="s1">'CD2_2'</span><span class="p">,</span> <span class="s1">'WCSAXES'</span><span class="p">,</span> <span class="s1">'PC1_1'</span><span class="p">,</span> <span class="s1">'PC2_2'</span><span class="p">,</span> <span class="s1">'CDELT1'</span><span class="p">,</span> 
+    <span class="s1">'CDELT2'</span><span class="p">,</span> <span class="s1">'CUNIT1'</span><span class="p">,</span> <span class="s1">'CUNIT2'</span><span class="p">,</span> <span class="s1">'LONPOLE'</span><span class="p">,</span> <span class="s1">'LATPOLE'</span><span class="p">,</span> <span class="s1">'RADESYS'</span><span class="p">]</span>
+<span class="p">[</span><span class="n">ff</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">old_kw</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">old_kw</span> <span class="ow">in</span> <span class="n">fits_wcs_keywords</span><span class="p">];</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <p>
+           Add the wcs object to the tree. The
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             gwcs
+            </span>
+           </code>
+           package takes care of the machinery for serializing this object to ASDF.
+          </p>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">ff</span><span class="o">.</span><span class="n">tree</span><span class="p">[</span><span class="s1">'wcs'</span><span class="p">]</span> <span class="o">=</span> <span class="n">wcsobj</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="cell docutils container">
+           <div class="cell_input docutils container">
+            <div class="highlight-ipython3 notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">tree_to_table</span><span class="p">(</span><span class="n">ff</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">show_in_notebook</span><span class="p">()</span>
+</pre>
+             </div>
+            </div>
+           </div>
+          </div>
+         </section>
+        </section>
+        <script type="text/x-thebe-config">
+         {
+        requestKernel: true,
+        binderOptions: {
+            repo: "spacetelescope/jdat_notebooks",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/asdf_example"
+        },
+        predefinedOutput: true
+    }
+        </script>
+        <script>
+         kernelName = 'python3'
+        </script>
+       </article>
+       <footer class="bd-footer-article">
+        <div class="footer-article-items footer-article__inner">
+         <div class="footer-article-item">
+          <!-- Previous / next buttons -->
+          <div class="prev-next-area">
+           <a class="left-prev" href="../../docs/github_pr.html" title="previous page">
+            <i class="fa-solid fa-angle-left">
+            </i>
+            <div class="prev-next-info">
+             <p class="prev-next-subtitle">
+              previous
+             </p>
+             <p class="prev-next-title">
+              Making a Pull Request (PR)
+             </p>
+            </div>
+           </a>
+           <a class="right-next" href="../background_estimation_imaging/Imaging_Sky_Background_Estimation.html" title="next page">
+            <div class="prev-next-info">
+             <p class="prev-next-subtitle">
+              next
+             </p>
+             <p class="prev-next-title">
+              Complex 2D Background
+             </p>
+            </div>
+            <i class="fa-solid fa-angle-right">
+            </i>
+           </a>
+          </div>
+         </div>
+        </div>
+       </footer>
+      </div>
+      <div class="bd-sidebar-secondary bd-toc">
+       <div class="sidebar-secondary-items sidebar-secondary__inner">
+        <div class="sidebar-secondary-item">
+         <div class="page-toc tocsection onthispage">
+          <i class="fa-solid fa-list">
+          </i>
+          Contents
+         </div>
+         <nav class="bd-toc-nav page-toc">
+          <ul class="visible nav section-nav flex-column">
+           <li class="toc-h1 nav-item toc-entry">
+            <a class="reference internal nav-link" href="#">
+             ASDF Example
+            </a>
+            <ul class="visible nav section-nav flex-column">
+             <li class="toc-h2 nav-item toc-entry">
+              <a class="reference internal nav-link" href="#introduction">
+               Introduction
+              </a>
+             </li>
+             <li class="toc-h2 nav-item toc-entry">
+              <a class="reference internal nav-link" href="#imports">
+               Imports
+              </a>
+             </li>
+             <li class="toc-h2 nav-item toc-entry">
+              <a class="reference internal nav-link" href="#get-the-data">
+               Get the data
+              </a>
+             </li>
+             <li class="toc-h2 nav-item toc-entry">
+              <a class="reference internal nav-link" href="#read-in-the-fits-file-look-at-its-structure-and-display-the-data">
+               Read in the FITS file, look at its structure and display the data
+              </a>
+             </li>
+             <li class="toc-h2 nav-item toc-entry">
+              <a class="reference internal nav-link" href="#example-1-store-just-the-key-value-pairs-of-the-metadata-in-asdf">
+               Example 1: Store just the key-value pairs of the metadata in ASDF
+              </a>
+             </li>
+            </ul>
+           </li>
+           <li class="toc-h1 nav-item toc-entry">
+            <a class="reference internal nav-link" href="#example-2-save-the-fits-header-annotations">
+             Example 2: Save the FITS header annotations
+            </a>
+            <ul class="visible nav section-nav flex-column">
+             <li class="toc-h2 nav-item toc-entry">
+              <a class="reference internal nav-link" href="#example-3-view-the-file-as-a-searchable-table">
+               Example 3: View the file as a searchable table
+              </a>
+             </li>
+             <li class="toc-h2 nav-item toc-entry">
+              <a class="reference internal nav-link" href="#example-4-add-the-data-and-write-to-a-file">
+               Example 4: Add the data and write to a file
+              </a>
+             </li>
+             <li class="toc-h2 nav-item toc-entry">
+              <a class="reference internal nav-link" href="#example-5-storing-multiple-extensions">
+               Example 5: Storing multiple extensions
+              </a>
+             </li>
+             <li class="toc-h2 nav-item toc-entry">
+              <a class="reference internal nav-link" href="#example-6-converting-from-fits-wcs-keywords-to-a-gwcs-object">
+               Example 6: Converting from FITS WCS keywords to a gwcs object
+              </a>
+             </li>
+            </ul>
+           </li>
+          </ul>
+         </nav>
+        </div>
+       </div>
+      </div>
+     </div>
+     <footer class="bd-footer-content">
+      <div class="bd-footer-content__inner container">
+       <div class="footer-item">
+        <p class="component-author">
+         By STScI
+        </p>
+       </div>
+       <div class="footer-item">
+        <p class="copyright">
+         © Copyright 2022.
+         <br/>
+        </p>
+       </div>
+       <div class="footer-item">
+       </div>
+       <div class="footer-item">
+       </div>
+      </div>
+     </footer>
+    </main>
+   </div>
+  </div>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52">
+  </script>
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52">
+  </script>
+  <footer class="bd-footer">
+  </footer>
+ </body>
+</html>
